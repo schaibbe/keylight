@@ -17,12 +17,12 @@ func main() {
 
 	var (
 		addr            = flag.String("a", "http://keylight:9123", "the address of an Elgato Key Light's HTTP API")
-		brightness      = flag.Int("b", 0, "set the brightness of a light to the specified percentage (valid: 3-100 %)")
-		brightnessincr  = flag.Int("B", 0, "change the brightness of a light by the specified percentage if light is on (valid: 3-100 %)")
+		brightness      = flag.Int("b", 0, "set the brightness of a light to the specified percentage (valid: 3 - 100 %)")
+		brightnessincr  = flag.Int("B", 0, "change the brightness of a light by the specified percentage if light is on (valid: -97 - 97 %)")
 		display         = flag.String("d", "", "set the display name of an Elgato Key Light device")
 		info            = flag.Bool("i", false, "display the current status of an Elgato Key Light without changing its state")
-		temperature     = flag.Int("t", 0, "set the color temperature of a light to the specified value (valid: 2900-7000 K)")
-		temperatureincr = flag.Int("T", 0, "change the color temperature of a light by the specified value if light is on (valid: -4100-4100 K %)")
+		temperature     = flag.Int("t", 0, "set the color temperature of a light to the specified value (valid: 2900 - 7000 K, rounded to the nearest 50 K)")
+		temperatureincr = flag.Int("T", 0, "change the color temperature of a light by the specified value if light is on (valid: -4100 - 4100 K, rounded to the nearest 50 K)")
 	)
 	flag.Parse()
 
@@ -83,7 +83,6 @@ func main() {
 			}
 		}
 		if *temperatureincr != 0 {
-			log.Printf("Received color temp Increment value %v, Current temp %v", *temperatureincr, l.Temperature)
 			switch {
 			case l.Temperature+*temperatureincr > 7000:
 				log.Println("Reached upper color temp bound")

@@ -1,4 +1,4 @@
-module github.com/mdlayher/keylight
+module github.com/schaibbe/keylight
 
 go 1.14
 
